@@ -31,30 +31,46 @@ git clone <repository-url>
 cd FastAPI6
 ```
 ### Create Virtual Environment
+```bash
 python3 -m venv .venv
+```
 
 ### Activate Environment
 # macOS/Linux:
+```bash
 source .venv/bin/activate
+```
 # Windows:
+```bash
 .venv\Scripts\activate
+```
 
 ### Install Dependencies
+```bash
 pip install -r requirements.txt
+```
 
 ### 2. Configure Environment Variables
 
 Create a .env file in the root directory.
 ```bash
+DB_USER=postgres
+DB_PASS=postgres
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=fastapi_week6
 
+SECRET_KEY=secret
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
 ### 3. Start Infrastructure (Docker)
 ```bash
 docker compose up -d
 ```
-Postgres: Running on localhost:5433
-pgAdmin: Running on http://localhost:5050
+*Postgres: Running on localhost:5433
+*pgAdmin: Running on http://localhost:5050
 
 ## 🏃‍♂️ Running the Application
 
