@@ -69,8 +69,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```bash
 docker compose up -d
 ```
-*Postgres: Running on localhost:5433
-*pgAdmin: Running on http://localhost:5050
+* Postgres: Running on localhost:5433
+* pgAdmin: Running on http://localhost:5050
 
 ## 🏃‍♂️ Running the Application
 
