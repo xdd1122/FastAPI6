@@ -11,6 +11,7 @@ This project implements a secured FastAPI backend with **JWT Authentication**, *
 * **Authentication:** OAuth2 Password Flow issuing **JWT Access Tokens**.
 * **Authorization:** Protected endpoints verifying valid tokens.
 * **Database Management:** Includes **pgAdmin 4** for visual database management.
+* **Github Login implementation:** Users can login with their Github Accounts to access protected features.
 
 ---
 
@@ -78,4 +79,11 @@ Start the FastAPI server:
 
 ```bash
 uvicorn main:app --reload
+```
+
+Start the Frontend:
+```bash
+cd frontend
+npm install
+npm run dev
 ```
