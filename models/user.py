@@ -12,6 +12,10 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
 
+    github_id = Column(Integer, unique=True, nullable=True)
+    avatar_url = Column(String, nullable=True)
+    auth_provider = Column(String, default="local") # 'local' or 'github'
+
 # --- Pydantic Schemas ---
 class UserRegister(BaseModel):
     username: str

@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from typing import List
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from jose import JWTError, jwt
@@ -52,25 +53,29 @@ def register_user(user_req: UserRegister, db: Session = Depends(get_db)):
 
 # --- Endpoint 2: Login ---
 @router.post("/login")
-def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    # Swagger sends 'username' and 'password' as form fields
-    user = db.query(User).filter(User.username == form_data.username).first()
+def login(login_data: UserLogin, db: Session = Depends(get_db)):
+    # logic changes: form_data.username -> login_data.username
     
-    if not user or not verify_password(form_data.password, user.hashed_password):
+    # 1. Query the user using the JSON data
+    user = db.query(User).filter(User.username == login_data.username).first()
+    
+    # 2. Verify password using login_data
+    if not user or not verify_password(login_data.password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     
-    # Create JWT Token
+    # 3. Create JWT Token (No changes here)
     access_token = create_access_token(data={"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
 
 # --- Endpoint 3: Protected Query ---
-@router.get("/query_users", response_model=list[UserResponse])
+@router.get("/", response_model=list[UserResponse]) 
 def get_all_users(
     db: Session = Depends(get_db), 
     current_user: User = Depends(get_current_user)
 ):
     """
-    Protected Endpoint: Only accessible if a valid token is provided.
+    Get all users.
+    URL: GET /users/
     """
     print(f"Request made by authorized user: {current_user.username}")
     users = db.query(User).all()
